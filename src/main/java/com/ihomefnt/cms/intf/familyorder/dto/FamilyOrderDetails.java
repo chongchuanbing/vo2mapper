@@ -2,6 +2,7 @@ package com.ihomefnt.cms.intf.familyorder.dto;
 
 import java.math.BigDecimal;
 
+import com.vo2mapper.annotation.FieldSearch;
 import com.vo2mapper.annotation.ForeginKey;
 import com.vo2mapper.annotation.PrimaryKey;
 
@@ -17,6 +18,7 @@ public class FamilyOrderDetails {
 	private Long id;
 	// 全品家订单id
 	@ForeginKey
+	@FieldSearch
 	private Long orderId;
 	// 产品id
 	@ForeginKey

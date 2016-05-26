@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.ihomefnt.cms.intf.familyorder.dto.FamilyOrder;
+import com.ihomefnt.cms.intf.familyorder.dto.FamilyOrderDetails;
 import com.vo2mapper.util.FileUtils;
 import com.vo2mapper.util.FreemarkerUtil;
 import com.vo2mapper.vo.FieldVo;
@@ -25,7 +25,7 @@ public class VoParser {
 
 	public static void main(String[] args) throws IOException {
 
-		String classFullName = FamilyOrder.class.getName();
+		String classFullName = FamilyOrderDetails.class.getName();
 		
 		VoParser.beforeDeal(classFullName);
 		
@@ -212,13 +212,18 @@ public class VoParser {
 
 			String isPrimaryKey = "false";
 			String isForeginKey = "false";
+			String isSearch = "false";
 			Annotation[] annos = item.getAnnotations();
 			for (Annotation itemInner : annos) {
 				String claszName = itemInner.annotationType().getName();
 				if ("com.vo2mapper.annotation.PrimaryKey".equals(claszName)) {
 					isPrimaryKey = "true";
-				} else if ("com.vo2mapper.annotation.ForeginKey".equals(claszName)) {
+				}
+				if ("com.vo2mapper.annotation.ForeginKey".equals(claszName)) {
 					isForeginKey = "true";
+				}
+				if ("com.vo2mapper.annotation.FieldSearch".equals(claszName)) {
+					isSearch = "true";
 				}
 			}
 			
@@ -233,6 +238,7 @@ public class VoParser {
 			}
 
 			FieldVo fieldVo = new FieldVo();
+			fieldVo.setSearch(isSearch);
 			fieldVo.setPrimaryKey(isPrimaryKey);
 			fieldVo.setForeginKey(isForeginKey);
 			fieldVo.setShowName(fieldName);

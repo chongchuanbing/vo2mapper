@@ -18,11 +18,16 @@
     	select
 	    	t.${databaseIdName},
 	    	<#list fieldMapList as field>
+	    	<#if field.primaryKey == 'false'>
 	    	t.${field.dbName}<#if field_has_next>,</#if>
+	    	</#if>
 	    	</#list>
     	from ${tableName} t 
 		where 1=1
 		<#list fieldMapList as field>
+			<#if field.search == 'true'>
+			and t.${field.dbName}=\#\{${field.showName}\}
+			</#if>
 		</#list>
 		order by t.create_time desc
     </select>
