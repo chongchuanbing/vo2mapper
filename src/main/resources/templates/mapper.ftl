@@ -23,7 +23,6 @@
     	from ${tableName} t 
 		where 1=1
 		<#list fieldMapList as field>
-		
 		</#list>
 		order by t.create_time desc
     </select>
@@ -34,7 +33,6 @@
     	from ${tableName} 
 		where 1=1
 		<#list fieldMapList as field>
-		
 		</#list>
     </select>
     

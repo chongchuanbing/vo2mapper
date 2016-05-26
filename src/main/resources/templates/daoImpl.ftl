@@ -8,9 +8,9 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.ihomefnt.cms.intf.${entityName?lower_case}.dao.${entityName}Dao;
-import com.ihomefnt.cms.intf.${entityName?lower_case}.dto.${entityName};
-import com.ihomefnt.cms.intf.${entityName?lower_case}.http.Http${entityName};
+import ${mainPackageName}.dao.${entityName}Dao;
+import ${mainPackageName}.dto.${entityName};
+import ${mainPackageName}.http.Http${entityName};
 
 /**
  * 

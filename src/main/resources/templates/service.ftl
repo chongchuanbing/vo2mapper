@@ -1,11 +1,11 @@
-package com.ihomefnt.cms.intf.${entityName?lower_case};
+package ${mainPackageName}.${entityName?lower_case};
 
 import java.util.List;
 
 import com.ihomefnt.cms.http.PageModel;
 import com.ihomefnt.cms.http.SearchRequestModel;
-import com.ihomefnt.cms.intf.${entityName?lower_case}.dto.${entityName};
-import com.ihomefnt.cms.intf.${entityName?lower_case}.http.Http${entityName};
+import ${mainPackageName}.dto.${entityName};
+import ${mainPackageName}.http.Http${entityName};
 
 /**
  * 

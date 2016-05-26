@@ -41,6 +41,7 @@ public class VoParser {
 		String className = classFullName.substring(classFullName.lastIndexOf(".")+1);
 		
 		String packageName = classFullName.substring(0, classFullName.lastIndexOf("."));
+		String mainPackageName = classFullName.substring(0, classFullName.indexOf(".dto"));
 		String tableName = "t" + showName2DbName(className);
 		String databaseIdName = "idt" + showName2DbName(className);
 		
@@ -51,13 +52,14 @@ public class VoParser {
 		map.put("entityName", className);
 		map.put("databaseIdName", databaseIdName);
 		map.put("packageName", packageName);
+		map.put("mainPackageName", mainPackageName);
 		map.put("fullClassName", classFullName);
 
-		VoParser.processHttp(className);
-		VoParser.processDao(className);
-		VoParser.processDaoImpl(className);
-		VoParser.processService(className);
-		VoParser.processServiceImpl(className);
+		VoParser.processHttp(map, className);
+		VoParser.processDao(map, className);
+		VoParser.processDaoImpl(map, className);
+		VoParser.processService(map, className);
+		VoParser.processServiceImpl(map, className);
 		VoParser.processMapper(map, className);
 		
 	}
@@ -72,10 +74,8 @@ public class VoParser {
 	 * @param className
 	 * @throws IOException 
 	 */
-	public static void processHttp(String className) throws IOException {
+	public static void processHttp(Map<String, Object> map, String className) throws IOException {
 		System.out.println("--------------------------------------http process start--------------------------------");
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("entityName", className);
 		VoParser.process(map, "http.ftl", File.separator + "http" + File.separator + "Http" + className + ".java");
 		System.out.println("--------------------------------------http process end--------------------------------");
 	}
@@ -85,18 +85,14 @@ public class VoParser {
 	 * @param className
 	 * @throws IOException 
 	 */
-	public static void processDao(String className) throws IOException {
+	public static void processDao(Map<String, Object> map, String className) throws IOException {
 		System.out.println("--------------------------------------dao process start--------------------------------");
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("entityName", className);
 		VoParser.process(map, "dao.ftl", File.separator + "dao" + File.separator + className + "Dao.java");
 		System.out.println("--------------------------------------dao process end--------------------------------");
 	}
 	
-	public static void processDaoImpl(String className) throws IOException {
+	public static void processDaoImpl(Map<String, Object> map, String className) throws IOException {
 		System.out.println("--------------------------------------dao implement process start--------------------------------");
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("entityName", className);
 		VoParser.process(map, "daoImpl.ftl", File.separator + className + "DaoImpl.java");
 		System.out.println("--------------------------------------dao implement process end--------------------------------");
 	}
@@ -106,18 +102,14 @@ public class VoParser {
 	 * @param className
 	 * @throws IOException 
 	 */
-	public static void processService(String className) throws IOException {
+	public static void processService(Map<String, Object> map, String className) throws IOException {
 		System.out.println("--------------------------------------service process start--------------------------------");
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("entityName", className);
 		VoParser.process(map, "service.ftl", File.separator + "service" + File.separator + className + "Service.java");
 		System.out.println("--------------------------------------service process process end--------------------------------");
 	}
 	
-	public static void processServiceImpl(String className) throws IOException {
+	public static void processServiceImpl(Map<String, Object> map, String className) throws IOException {
 		System.out.println("--------------------------------------service implement process start--------------------------------");
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("entityName", className);
 		VoParser.process(map, "serviceImpl.ftl", File.separator + className + "ServiceImpl.java");
 		System.out.println("--------------------------------------service implement process end--------------------------------");
 	}

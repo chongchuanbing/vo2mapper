@@ -1,16 +1,18 @@
 package com.ihomefnt.cms.impl.${entityName?lower_case};
 
 import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ihomefnt.cms.http.PageModel;
 import com.ihomefnt.cms.http.SearchRequestModel;
-import com.ihomefnt.cms.intf.${entityName?lower_case}.${entityName}Service;
-import com.ihomefnt.cms.intf.${entityName?lower_case}.dao.${entityName}Dao;
-import com.ihomefnt.cms.intf.${entityName?lower_case}.dto.${entityName};
-import com.ihomefnt.cms.intf.${entityName?lower_case}.http.Http${entityName};
+import ${mainPackageName}.service.${entityName}Service;
+import ${mainPackageName}.dao.${entityName}Dao;
+import ${mainPackageName}.dto.${entityName};
+import ${mainPackageName}.http.Http${entityName};
 
 /**
  * 
@@ -53,6 +55,8 @@ public class ${entityName}ServiceImpl implements ${entityName}Service {
 	 * @return
 	 */
 	Http${entityName} query${entityName}(Long ${entityName?lower_case}Id) {
-		return null;
+		Map<String, Object> paramMap = new HashMap<String, Obejct>();
+		paramMap.put("${entityName?lower_case}Id", ${entityName?lower_case}Id);
+		return ${entityName?uncap_first}Dao.queryAll${entityName}(paramMap);
 	}
 }

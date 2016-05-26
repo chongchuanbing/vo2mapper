@@ -3,8 +3,8 @@ package com.ihomefnt.cms.intf.${entityName?lower_case}.dao;
 import java.util.List;
 import java.util.Map;
 
-import com.ihomefnt.cms.intf.${entityName?lower_case}.dto.${entityName};
-import com.ihomefnt.cms.intf.${entityName?lower_case}.http.Http${entityName};
+import ${mainPackageName}.dto.${entityName};
+import ${mainPackageName}.http.Http${entityName};
 
 /**
  * 

@@ -1,6 +1,6 @@
 package com.ihomefnt.cms.intf.${entityName?lower_case}.http;
 
-import com.ihomefnt.cms.intf.${entityName?lower_case}.dto.${entityName};
+import ${mainPackageName}.dto.${entityName};
 
 /**
  * 
