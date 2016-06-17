@@ -1,4 +1,4 @@
-package com.ihomefnt.cms.impl.${entityName?lower_case};
+package com.ihomefnt.cms.impl.${moduleName};
 
 import java.util.HashMap;
 import java.util.List;
@@ -28,6 +28,11 @@ public class ${entityName}DaoImpl implements ${entityName}Dao {
 	@Override
 	public List<Http${entityName}> queryAll${entityName}(Map<String, Object> paramMap) {
 		return null;
+	}
+	
+	@Override
+	public Long queryAll${entityName}Count(Map<String, Object> paramMap) {
+		return sqlSession.selectOne(NAME_SPACE + "queryAll${entityName}Count");
 	}
 	
 	@Override

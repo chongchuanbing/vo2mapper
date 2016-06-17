@@ -1,4 +1,4 @@
-package com.ihomefnt.cms.intf.${entityName?lower_case}.dao;
+package ${mainPackageName}.dao;
 
 import java.util.List;
 import java.util.Map;
@@ -18,6 +18,12 @@ public interface ${entityName}Dao {
 	 * @return
 	 */
 	List<Http${entityName}> queryAll${entityName}(Map<String, Object> paramMap);
+	
+	/**
+	 * 
+	 * @return
+	 */
+	Long queryAll${entityName}Count(Map<String, Object> paramMap);
 
 	/**
 	 * 

@@ -1,4 +1,4 @@
-package com.ihomefnt.cms.intf.${entityName?lower_case}.http;
+package ${mainPackageName}.http;
 
 import ${mainPackageName}.dto.${entityName};
 

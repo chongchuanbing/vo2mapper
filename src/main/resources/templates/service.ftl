@@ -1,4 +1,4 @@
-package ${mainPackageName}.${entityName?lower_case};
+package ${mainPackageName};
 
 import java.util.List;
 

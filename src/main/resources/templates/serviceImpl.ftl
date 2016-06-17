@@ -1,4 +1,4 @@
-package com.ihomefnt.cms.impl.${entityName?lower_case};
+package com.ihomefnt.cms.impl.${moduleName};
 
 import java.util.List;
 import java.util.HashMap;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.ihomefnt.cms.http.PageModel;
 import com.ihomefnt.cms.http.SearchRequestModel;
-import ${mainPackageName}.service.${entityName}Service;
+import ${mainPackageName}.${entityName}Service;
 import ${mainPackageName}.dao.${entityName}Dao;
 import ${mainPackageName}.dto.${entityName};
 import ${mainPackageName}.http.Http${entityName};
@@ -45,7 +45,7 @@ public class ${entityName}ServiceImpl implements ${entityName}Service {
 	 * @param searchRequestModel
 	 * @return
 	 */
-	PageModel queryAll${entityName}(SearchRequestModel searchRequestModel) {
+	public PageModel queryAll${entityName}(SearchRequestModel searchRequestModel) {
 		return null;
 	}
 
@@ -54,9 +54,13 @@ public class ${entityName}ServiceImpl implements ${entityName}Service {
 	 * @param familyOrderId
 	 * @return
 	 */
-	Http${entityName} query${entityName}(Long ${entityName?lower_case}Id) {
-		Map<String, Object> paramMap = new HashMap<String, Obejct>();
+	public Http${entityName} query${entityName}(Long ${entityName?lower_case}Id) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("${entityName?lower_case}Id", ${entityName?lower_case}Id);
-		return ${entityName?uncap_first}Dao.queryAll${entityName}(paramMap);
-	}
+		List<Http${entityName}> list = ${entityName?uncap_first}Dao.queryAll${entityName}(paramMap);
+		if (null != list && 0 < list.size()) {
+			return list.get(0);
+		}
+		return null;
+ 	}
 }

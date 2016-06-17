@@ -15,5 +15,10 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
 public @interface FieldSort {
-
+	public FieldSortType value() default FieldSortType.ASC;
+	public enum FieldSortType {
+		ASC,
+		DESC
+	}
 }
+
