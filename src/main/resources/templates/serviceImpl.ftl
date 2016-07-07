@@ -31,12 +31,12 @@ public class ${entityName}ServiceImpl implements ${entityName}Service {
 	}
 
 	@Override
-	public Long add${entityName}(${entityName} ${entityName?uncap_first}) {
+	public int add${entityName}(${entityName} ${entityName?uncap_first}) {
 		return ${entityName?uncap_first}Dao.add${entityName}(${entityName?uncap_first});
 	}
 
 	@Override
-	public Long update${entityName}(${entityName} ${entityName?uncap_first}) {
+	public int update${entityName}(${entityName} ${entityName?uncap_first}) {
 		return ${entityName?uncap_first}Dao.update${entityName}(${entityName?uncap_first});
 	}
 
@@ -51,12 +51,12 @@ public class ${entityName}ServiceImpl implements ${entityName}Service {
 
 	/**
 	 * 根据id查询
-	 * @param familyOrderId
+	 * @param ${entityName?uncap_first}Id
 	 * @return
 	 */
-	public Http${entityName} query${entityName}(Long ${entityName?lower_case}Id) {
+	public Http${entityName} query${entityName}(int ${entityName?uncap_first}Id) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("${entityName?lower_case}Id", ${entityName?lower_case}Id);
+		paramMap.put("${entityName?uncap_first}Id", ${entityName?uncap_first}Id);
 		List<Http${entityName}> list = ${entityName?uncap_first}Dao.queryAll${entityName}(paramMap);
 		if (null != list && 0 < list.size()) {
 			return list.get(0);

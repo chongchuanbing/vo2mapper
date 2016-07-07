@@ -25,14 +25,14 @@ public interface ${entityName}Service {
 	 * @param ${entityName?uncap_first}
 	 * @return
 	 */
-	Long add${entityName}(${entityName} ${entityName?uncap_first});
+	int add${entityName}(${entityName} ${entityName?uncap_first});
 	
 	/**
 	 * 
 	 * @param ${entityName?uncap_first}
 	 * @return
 	 */
-	Long update${entityName}(${entityName} ${entityName?uncap_first});
+	int update${entityName}(${entityName} ${entityName?uncap_first});
 	
 	/**
 	 * 检索方法
@@ -43,8 +43,8 @@ public interface ${entityName}Service {
 
 	/**
 	 * 根据id查询
-	 * @param familyOrderId
+	 * @param ${entityName?uncap_first}Id
 	 * @return
 	 */
-	Http${entityName} query${entityName}(Long ${entityName?lower_case}Id);
+	Http${entityName} query${entityName}(int ${entityName?uncap_first}Id);
 }
