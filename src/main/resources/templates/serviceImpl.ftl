@@ -7,8 +7,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ihomefnt.cms..PageModel;
-import com.ihomefnt.cms..SearchRequestModel;
+import com.ihomefnt.cms.http.PageModel;
+import com.ihomefnt.cms.http.SearchRequestModel;
 import ${mainPackageName}.${entityName}Service;
 import ${mainPackageName}.dao.${entityName}Dao;
 import ${mainPackageName}.dto.${entityName};

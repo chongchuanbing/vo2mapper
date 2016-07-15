@@ -2,8 +2,8 @@ package ${mainPackageName};
 
 import java.util.List;
 
-import com.ihomefnt.cms..PageModel;
-import com.ihomefnt.cms..SearchRequestModel;
+import com.ihomefnt.cms.http.PageModel;
+import com.ihomefnt.cms.http.SearchRequestModel;
 import ${mainPackageName}.dto.${entityName};
 
 /**
