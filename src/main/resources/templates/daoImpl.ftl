@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 
 import ${mainPackageName}.dao.${entityName}Dao;
 import ${mainPackageName}.dto.${entityName};
-import ${mainPackageName}.http.Http${entityName};
 
 /**
  * 
@@ -26,28 +25,28 @@ public class ${entityName}DaoImpl implements ${entityName}Dao {
     private static final String NAME_SPACE = "com.ihomefnt.cms.${entityName?lower_case}.";
 
 	@Override
-	public List<Http${entityName}> queryAll${entityName}(Map<String, Object> paramMap) {
+	public List<${entityName}> queryAll${entityName}(Map<String, Object> paramMap) {
 		return null;
 	}
 	
 	@Override
-	public Long queryAll${entityName}Count(Map<String, Object> paramMap) {
+	public int queryAll${entityName}Count(Map<String, Object> paramMap) {
 		return sqlSession.selectOne(NAME_SPACE + "queryAll${entityName}Count");
 	}
 	
 	@Override
-	public List<Http${entityName}> queryAll${entityName}() {
+	public List<${entityName}> queryAll${entityName}() {
 		return sqlSession.selectList(NAME_SPACE + "queryAll${entityName}");
 	}
 
 	@Override
-	public Long add${entityName}(${entityName} ${entityName?uncap_first}) {
+	public int add${entityName}(${entityName} ${entityName?uncap_first}) {
 		sqlSession.insert(NAME_SPACE + "add${entityName}", ${entityName?uncap_first});
 		return ${entityName?uncap_first}.getId();
 	}
 
 	@Override
-	public Long update${entityName}(${entityName} ${entityName?uncap_first}) {
+	public int update${entityName}(${entityName} ${entityName?uncap_first}) {
 		sqlSession.update(NAME_SPACE + "update${entityName}", ${entityName?uncap_first});
 		return ${entityName?uncap_first}.getId();
 	}

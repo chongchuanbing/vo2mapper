@@ -2,10 +2,9 @@ package ${mainPackageName};
 
 import java.util.List;
 
-import com.ihomefnt.cms.http.PageModel;
-import com.ihomefnt.cms.http.SearchRequestModel;
+import com.ihomefnt.cms..PageModel;
+import com.ihomefnt.cms..SearchRequestModel;
 import ${mainPackageName}.dto.${entityName};
-import ${mainPackageName}.http.Http${entityName};
 
 /**
  * 
@@ -18,7 +17,7 @@ public interface ${entityName}Service {
 	 * 
 	 * @return
 	 */
-	List<Http${entityName}> queryAll${entityName}();
+	List<${entityName}> queryAll${entityName}();
 
 	/**
 	 * 
@@ -46,5 +45,5 @@ public interface ${entityName}Service {
 	 * @param ${entityName?uncap_first}Id
 	 * @return
 	 */
-	Http${entityName} query${entityName}(int ${entityName?uncap_first}Id);
+	${entityName} query${entityName}(int ${entityName?uncap_first}Id);
 }

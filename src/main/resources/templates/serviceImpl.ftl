@@ -7,12 +7,11 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ihomefnt.cms.http.PageModel;
-import com.ihomefnt.cms.http.SearchRequestModel;
+import com.ihomefnt.cms..PageModel;
+import com.ihomefnt.cms..SearchRequestModel;
 import ${mainPackageName}.${entityName}Service;
 import ${mainPackageName}.dao.${entityName}Dao;
 import ${mainPackageName}.dto.${entityName};
-import ${mainPackageName}.http.Http${entityName};
 
 /**
  * 
@@ -26,7 +25,7 @@ public class ${entityName}ServiceImpl implements ${entityName}Service {
 	private ${entityName}Dao ${entityName?uncap_first}Dao;
 
 	@Override
-	public List<Http${entityName}> queryAll${entityName}() {
+	public List<${entityName}> queryAll${entityName}() {
 		return ${entityName?uncap_first}Dao.queryAll${entityName}();
 	}
 
@@ -54,10 +53,10 @@ public class ${entityName}ServiceImpl implements ${entityName}Service {
 	 * @param ${entityName?uncap_first}Id
 	 * @return
 	 */
-	public Http${entityName} query${entityName}(int ${entityName?uncap_first}Id) {
+	public ${entityName} query${entityName}(int ${entityName?uncap_first}Id) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("${entityName?uncap_first}Id", ${entityName?uncap_first}Id);
-		List<Http${entityName}> list = ${entityName?uncap_first}Dao.queryAll${entityName}(paramMap);
+		List<${entityName}> list = ${entityName?uncap_first}Dao.queryAll${entityName}(paramMap);
 		if (null != list && 0 < list.size()) {
 			return list.get(0);
 		}

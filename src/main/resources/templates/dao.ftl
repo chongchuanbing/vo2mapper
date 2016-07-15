@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 
 import ${mainPackageName}.dto.${entityName};
-import ${mainPackageName}.http.Http${entityName};
 
 /**
  * 
@@ -17,32 +16,32 @@ public interface ${entityName}Dao {
 	 * 
 	 * @return
 	 */
-	List<Http${entityName}> queryAll${entityName}(Map<String, Object> paramMap);
+	List<${entityName}> queryAll${entityName}(Map<String, Object> paramMap);
 	
 	/**
 	 * 
 	 * @return
 	 */
-	Long queryAll${entityName}Count(Map<String, Object> paramMap);
+	int queryAll${entityName}Count(Map<String, Object> paramMap);
 
 	/**
 	 * 
 	 * @return
 	 */
-	List<Http${entityName}> queryAll${entityName}();
+	List<${entityName}> queryAll${entityName}();
 
 	/**
 	 * 
 	 * @param ${entityName?uncap_first}
 	 * @return
 	 */
-	Long add${entityName}(${entityName} ${entityName?uncap_first});
+	int add${entityName}(${entityName} ${entityName?uncap_first});
 	
 	/**
 	 * 
 	 * @param ${entityName?uncap_first}
 	 * @return
 	 */
-	Long update${entityName}(${entityName} ${entityName?uncap_first});
+	int update${entityName}(${entityName} ${entityName?uncap_first});
 	
 }
