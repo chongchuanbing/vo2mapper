@@ -31,7 +31,7 @@ public class ${entityName}DaoImpl implements ${entityName}Dao {
 	
 	@Override
 	public int queryAll${entityName}Count(Map<String, Object> paramMap) {
-		return sqlSession.selectOne(NAME_SPACE + "queryAll${entityName}Count");
+		return sqlSession.selectOne(NAME_SPACE + "queryAll${entityName}Count", paramMap);
 	}
 	
 	@Override
