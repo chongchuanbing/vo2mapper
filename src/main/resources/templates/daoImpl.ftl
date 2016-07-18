@@ -26,7 +26,7 @@ public class ${entityName}DaoImpl implements ${entityName}Dao {
 
 	@Override
 	public List<${entityName}> queryAll${entityName}(Map<String, Object> paramMap) {
-		return null;
+		return sqlSession.selectList(NAME_SPACE + "queryAll${entityName}", paramMap);
 	}
 	
 	@Override
