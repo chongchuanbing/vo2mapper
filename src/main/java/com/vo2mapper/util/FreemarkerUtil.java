@@ -27,7 +27,7 @@ public class FreemarkerUtil {
     static{
         try {
         	String path = FreemarkerUtil.class.getResource("/") + File.separator + "templates";
-        	path = path.replaceAll("file:/", "");
+        	path = path.replaceAll("file:", "");
 			initConfig(path);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

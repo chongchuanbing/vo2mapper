@@ -1,7 +1,8 @@
-package com.ihomefnt.cms.impl.${moduleName};
+package com.ihomefnt.cms.impl.${entityName?lower_case};
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -9,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import ${mainPackageName}.dao.${entityName}Dao;
-import ${mainPackageName}.dto.${entityName};
+import ${fullClassName};
 
 /**
  * 
@@ -30,7 +31,7 @@ public class ${entityName}DaoImpl implements ${entityName}Dao {
 	}
 	
 	@Override
-	public int queryAll${entityName}Count(Map<String, Object> paramMap) {
+	public Integer queryAll${entityName}Count(Map<String, Object> paramMap) {
 		return sqlSession.selectOne(NAME_SPACE + "queryAll${entityName}Count", paramMap);
 	}
 	
@@ -40,13 +41,13 @@ public class ${entityName}DaoImpl implements ${entityName}Dao {
 	}
 
 	@Override
-	public int add${entityName}(${entityName} ${entityName?uncap_first}) {
+	public Integer add${entityName}(${entityName} ${entityName?uncap_first}) {
 		sqlSession.insert(NAME_SPACE + "add${entityName}", ${entityName?uncap_first});
 		return ${entityName?uncap_first}.getId();
 	}
 
 	@Override
-	public int update${entityName}(${entityName} ${entityName?uncap_first}) {
+	public Integer update${entityName}(${entityName} ${entityName?uncap_first}) {
 		sqlSession.update(NAME_SPACE + "update${entityName}", ${entityName?uncap_first});
 		return ${entityName?uncap_first}.getId();
 	}

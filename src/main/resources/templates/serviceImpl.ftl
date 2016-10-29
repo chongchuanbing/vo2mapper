@@ -1,6 +1,7 @@
 package com.ihomefnt.cms.impl.${moduleName};
 
 import java.util.List;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,9 +10,11 @@ import org.springframework.stereotype.Service;
 
 import com.ihomefnt.cms.http.PageModel;
 import com.ihomefnt.cms.http.SearchRequestModel;
+import com.ihomefnt.cms.utils.ModelMapperUtil;
 import ${mainPackageName}.${entityName}Service;
 import ${mainPackageName}.dao.${entityName}Dao;
-import ${mainPackageName}.dto.${entityName};
+import ${fullClassName};
+import ${dtoFullName};
 
 /**
  * 
@@ -25,17 +28,29 @@ public class ${entityName}ServiceImpl implements ${entityName}Service {
 	private ${entityName}Dao ${entityName?uncap_first}Dao;
 
 	@Override
-	public List<${entityName}> queryAll${entityName}() {
-		return ${entityName?uncap_first}Dao.queryAll${entityName}();
+	public List<${dtoName}> queryAll${dtoName}() {
+		List<${entityName}> ${entityName?uncap_first}List = ${entityName?uncap_first}Dao.queryAll${entityName}();
+		if (null == ${entityName?uncap_first}List) {
+			${entityName?uncap_first}List = new ArrayList<>();
+		}
+		return ModelMapperUtil.strictMapList(${entityName?uncap_first}List, ${dtoName}.class);
 	}
 
 	@Override
-	public int add${entityName}(${entityName} ${entityName?uncap_first}) {
+	public Integer add${dtoName}(${dtoName} ${dtoName?uncap_first}) {
+		if (null == ${dtoName?uncap_first}) {
+			return -1;
+		}
+		${entityName} ${entityName?uncap_first} = ModelMapperUtil.strictMap(${dtoName?uncap_first}, ${entityName}.class);
 		return ${entityName?uncap_first}Dao.add${entityName}(${entityName?uncap_first});
 	}
 
 	@Override
-	public int update${entityName}(${entityName} ${entityName?uncap_first}) {
+	public Integer update${dtoName}(${dtoName} ${dtoName?uncap_first}) {
+		if (null == ${dtoName?uncap_first}) {
+			return -1;
+		}
+		${entityName} ${entityName?uncap_first} = ModelMapperUtil.strictMap(${dtoName?uncap_first}, ${entityName}.class);
 		return ${entityName?uncap_first}Dao.update${entityName}(${entityName?uncap_first});
 	}
 
@@ -44,7 +59,7 @@ public class ${entityName}ServiceImpl implements ${entityName}Service {
 	 * @param searchRequestModel
 	 * @return
 	 */
-	public PageModel queryAll${entityName}(SearchRequestModel searchRequestModel) {
+	public PageModel queryAll${dtoName}(SearchRequestModel searchRequestModel) {
 		return null;
 	}
 
@@ -53,12 +68,13 @@ public class ${entityName}ServiceImpl implements ${entityName}Service {
 	 * @param ${entityName?uncap_first}Id
 	 * @return
 	 */
-	public ${entityName} query${entityName}(int ${entityName?uncap_first}Id) {
+	public ${dtoName} query${dtoName}(Integer ${entityName?uncap_first}Id) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("${entityName?uncap_first}Id", ${entityName?uncap_first}Id);
 		List<${entityName}> list = ${entityName?uncap_first}Dao.queryAll${entityName}(paramMap);
 		if (null != list && 0 < list.size()) {
-			return list.get(0);
+			${entityName} ${entityName?uncap_first} = list.get(0);
+			return ModelMapperUtil.strictMap(${entityName?uncap_first}, ${dtoName}.class);
 		}
 		return null;
  	}

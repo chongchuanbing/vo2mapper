@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.ihomefnt.cms.http.PageModel;
 import com.ihomefnt.cms.http.SearchRequestModel;
-import ${mainPackageName}.dto.${entityName};
+import ${dtoFullName};
 
 /**
  * 
@@ -17,33 +17,33 @@ public interface ${entityName}Service {
 	 * 
 	 * @return
 	 */
-	List<${entityName}> queryAll${entityName}();
+	List<${dtoName}> queryAll${dtoName}();
 
 	/**
 	 * 
-	 * @param ${entityName?uncap_first}
+	 * @param ${dtoName?uncap_first}
 	 * @return
 	 */
-	int add${entityName}(${entityName} ${entityName?uncap_first});
+	Integer add${dtoName}(${dtoName} ${dtoName?uncap_first});
 	
 	/**
 	 * 
-	 * @param ${entityName?uncap_first}
+	 * @param ${dtoName?uncap_first}
 	 * @return
 	 */
-	int update${entityName}(${entityName} ${entityName?uncap_first});
+	Integer update${dtoName}(${dtoName} ${dtoName?uncap_first});
 	
 	/**
 	 * 检索方法
 	 * @param searchRequestModel
 	 * @return
 	 */
-	PageModel queryAll${entityName}(SearchRequestModel searchRequestModel);
+	PageModel queryAll${dtoName}(SearchRequestModel searchRequestModel);
 
 	/**
 	 * 根据id查询
-	 * @param ${entityName?uncap_first}Id
+	 * @param ${dtoName?uncap_first}Id
 	 * @return
 	 */
-	${entityName} query${entityName}(int ${entityName?uncap_first}Id);
+	${dtoName} query${dtoName}(Integer ${entityName?uncap_first}Id);
 }

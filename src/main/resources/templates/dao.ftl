@@ -3,7 +3,7 @@ package ${mainPackageName}.dao;
 import java.util.List;
 import java.util.Map;
 
-import ${mainPackageName}.dto.${entityName};
+import ${fullClassName};
 
 /**
  * 
@@ -22,7 +22,7 @@ public interface ${entityName}Dao {
 	 * 
 	 * @return
 	 */
-	int queryAll${entityName}Count(Map<String, Object> paramMap);
+	Integer queryAll${entityName}Count(Map<String, Object> paramMap);
 
 	/**
 	 * 
@@ -35,13 +35,13 @@ public interface ${entityName}Dao {
 	 * @param ${entityName?uncap_first}
 	 * @return
 	 */
-	int add${entityName}(${entityName} ${entityName?uncap_first});
+	Integer add${entityName}(${entityName} ${entityName?uncap_first});
 	
 	/**
 	 * 
 	 * @param ${entityName?uncap_first}
 	 * @return
 	 */
-	int update${entityName}(${entityName} ${entityName?uncap_first});
+	Integer update${entityName}(${entityName} ${entityName?uncap_first});
 	
 }

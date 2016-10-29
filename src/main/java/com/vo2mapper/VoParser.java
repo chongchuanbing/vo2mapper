@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.ihomefnt.cms.intf.aftersale.dto.AfterSaleOrderRelate;
+import com.ihomefnt.cms.intf.mail.po.MailRole;
 import com.vo2mapper.util.FileUtils;
 import com.vo2mapper.util.FreemarkerUtil;
 import com.vo2mapper.vo.FieldVo;
@@ -25,7 +25,7 @@ public class VoParser {
 
 	public static void main(String[] args) throws IOException {
 
-		String classFullName = AfterSaleOrderRelate.class.getName();
+		String classFullName = MailRole.class.getName();
 		
 		VoParser.beforeDeal(classFullName);
 		
@@ -41,7 +41,19 @@ public class VoParser {
 		String className = classFullName.substring(classFullName.lastIndexOf(".")+1);
 		
 		String packageName = classFullName.substring(0, classFullName.lastIndexOf("."));
-		String mainPackageName = classFullName.substring(0, classFullName.indexOf(".dto"));
+		String mainPackageName = "";
+		if (-1 < classFullName.indexOf(".dto")) {
+		    mainPackageName = classFullName.substring(0, classFullName.indexOf(".dto"));
+		} else if (-1 < classFullName.indexOf(".po")) {
+		    mainPackageName = classFullName.substring(0, classFullName.indexOf(".po"));
+		} else {
+			mainPackageName = classFullName;
+		}
+		
+		String dtoPackageName = packageName.substring(0, packageName.lastIndexOf(".")) + ".dto";
+		String dtoFullName = dtoPackageName + "." + className + "Dto";
+		String dtoName = className + "Dto";
+		
 		String moduleName = mainPackageName.substring(mainPackageName.lastIndexOf(".")+1);
 		String tableName = "";
 		if (className.startsWith("R")) {
@@ -49,12 +61,12 @@ public class VoParser {
 		} else {
 			tableName = "t" + showName2DbName(className);
 		}
-		String databaseIdName = "";
-		if (className.startsWith("R")) {
-			databaseIdName = "id" + showName2DbName(className).substring(1);
-		} else {
-			databaseIdName = "idt" + showName2DbName(className);
-		}
+		String databaseIdName = "id";
+//		if (className.startsWith("R")) {
+//			databaseIdName = "id" + showName2DbName(className).substring(1);
+//		} else {
+//			databaseIdName = "idt" + showName2DbName(className);
+//		}
 		
 		List<FieldVo> fieldVoList = VoParser.getAllAttrs(classFullName);
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -66,6 +78,8 @@ public class VoParser {
 		map.put("mainPackageName", mainPackageName);
 		map.put("fullClassName", classFullName);
 		map.put("moduleName", moduleName);
+		map.put("dtoFullName", dtoFullName);
+		map.put("dtoName", dtoName);
 
 		VoParser.processHttp(map, className);
 		VoParser.processDao(map, className);
