@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -12,9 +14,11 @@ import java.util.Map;
 import java.util.Set;
 
 import com.ihomefnt.cms.intf.mail.po.MailRole;
+import com.ihomefnt.psi.util.DateUtil;
 import com.vo2mapper.util.FileUtils;
 import com.vo2mapper.util.FreemarkerUtil;
 import com.vo2mapper.vo.FieldVo;
+import com.vo2mapper.vo.MethodVo;
 
 /**
  * 
@@ -80,6 +84,7 @@ public class VoParser {
 		map.put("moduleName", moduleName);
 		map.put("dtoFullName", dtoFullName);
 		map.put("dtoName", dtoName);
+		map.put("createTimeStr", DateUtil.format(new Date(), DateUtil.FORMAT_SHORT_CN));
 
 		VoParser.processHttp(map, className);
 		VoParser.processDao(map, className);
@@ -277,6 +282,48 @@ public class VoParser {
 	}
 
 	/**
+	 * 制定类名，获取所有函数属性 
+	 * @param className
+	 * @return
+	 */
+	public static List<MethodVo> getAllMethods(String className) {
+		Class clasz = null;
+		try {
+			clasz = Class.forName(className);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		if (null == clasz) {
+			return null;
+		}
+		
+		List<MethodVo> methodVoList = new ArrayList<MethodVo>();
+		
+		Set<Method> methodSet = getClassMethods(clasz, true);
+		
+		Method[] methodArr = new Method[methodSet.size()];
+		methodArr = methodSet.toArray(methodArr);
+		for (Method item : methodArr) {
+			
+			Annotation[] annos = item.getAnnotations();
+			for (Annotation itemInner : annos) {
+				String claszName = itemInner.annotationType().getName();
+				
+			}
+			
+			String methodName = item.getName();
+			
+			MethodVo methodVo = new MethodVo();
+			methodVo.setName(methodName);
+			
+			methodVoList.add(methodVo);
+		}
+		
+		return methodVoList;
+	}
+
+	/**
 	 * 获取当前类属性
 	 * @param clazz
 	 * @param includeParentClass
@@ -291,6 +338,25 @@ public class VoParser {
 		}
 		if (includeParentClass) {
 			getParentClassFields(fieldSet, clazz.getSuperclass());
+		}
+		return fieldSet;
+	}
+
+	/**
+	 * 获取当前类函数
+	 * @param clazz
+	 * @param includeParentClass
+	 * @return
+	 */
+	public static Set<Method> getClassMethods(Class clazz,
+			boolean includeParentClass) {
+		Set<Method> fieldSet = new HashSet<Method>();
+		Method[] fields = clazz.getDeclaredMethods();
+		for (Method field : fields) {
+			fieldSet.add(field);
+		}
+		if (includeParentClass) {
+			getParentClassMethods(fieldSet, clazz.getSuperclass());
 		}
 		return fieldSet;
 	}
@@ -312,6 +378,25 @@ public class VoParser {
 		}
 		getParentClassFields(fieldSet, clazz.getSuperclass());
 		return fieldSet;
+	}
+
+	/**
+	 * 获取父类函数
+	 * @param map
+	 * @param clazz
+	 * @return
+	 */
+	private static Set<Method> getParentClassMethods(
+			Set<Method> methodSet, Class clazz) {
+		Method[] methods = clazz.getDeclaredMethods();
+		for (Method method : methods) {
+			methodSet.add(method);
+		}
+		if (clazz.getSuperclass() == null) {
+			return methodSet;
+		}
+		getParentClassMethods(methodSet, clazz.getSuperclass());
+		return methodSet;
 	}
 	
 	/**

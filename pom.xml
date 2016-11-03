@@ -16,6 +16,12 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>com.ihomefnt.cms</groupId>
+			<artifactId>cms-web</artifactId>
+			<version>2.5.1</version>
+		</dependency>
+		
+		<dependency>
 			<groupId>org.freemarker</groupId>
 			<artifactId>freemarker</artifactId>
 			<version>2.3.23</version>
