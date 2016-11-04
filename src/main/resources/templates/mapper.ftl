@@ -32,7 +32,7 @@
 		order by t.create_time desc
     </select>
     
-    <select id="queryAll${entityName}Count" parameterType="map" resultType="java.lang.Long">
+    <select id="queryAll${entityName}Count" parameterType="map" resultType="java.lang.Integer">
     	select
 	    	count(1)
     	from ${tableName} 
