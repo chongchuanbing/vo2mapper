@@ -24,6 +24,7 @@
 	    	</#list>
     	from ${tableName} t 
 		where 1=1
+		and t.delete_flag = 0
 		<#list fieldMapList as field>
 			<#if field.search == 'true'>
 			and t.${field.dbName}=\#\{${field.showName}\}
@@ -37,6 +38,7 @@
 	    	count(1)
     	from ${tableName} 
 		where 1=1
+		and t.delete_flag = 0
 		<#list fieldMapList as field>
 		</#list>
     </select>
@@ -62,6 +64,28 @@
 			</#if>
 			</#list>
 		</trim>
+    </insert>
+    
+    <insert id="add${entityName}List" parameterType="java.util.List">
+    INSERT INTO ${tableName}
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+		<#list fieldMapList as field>
+		<#if field.primaryKey == "false">
+			${field.dbName},
+		</#if>
+		</#list>
+	</trim>
+		VALUES
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			<trim prefix="(" suffix=")" suffixOverrides=",">
+				<#list fieldMapList as field>
+				<#if field.primaryKey == "false">
+					\#\{item.${field.showName}\}<#if field_has_next>,</#if>
+				</#if>
+				</#list>
+			</trim>
+		</foreach>
     </insert>
     
     <update id="update${entityName}" parameterType="${fullClassName}">

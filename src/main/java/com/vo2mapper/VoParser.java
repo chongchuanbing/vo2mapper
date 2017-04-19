@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.ihomefnt.cms.intf.mail.po.MailRole;
 import com.ihomefnt.psi.util.DateUtil;
 import com.vo2mapper.util.FileUtils;
 import com.vo2mapper.util.FreemarkerUtil;
@@ -29,36 +28,37 @@ public class VoParser {
 
 	public static void main(String[] args) throws IOException {
 
-		String classFullName = MailRole.class.getName();
-		
+		String classFullName = "";//PurchaseDetail.class.getName();
+
 		VoParser.beforeDeal(classFullName);
-		
-//		VoParser.copyFile(classFullName);
+
+		// VoParser.copyFile(classFullName);
 	}
-	
+
 	/**
 	 * 预处理
+	 * 
 	 * @param classFullName
 	 * @throws IOException
 	 */
 	public static void beforeDeal(String classFullName) throws IOException {
-		String className = classFullName.substring(classFullName.lastIndexOf(".")+1);
-		
+		String className = classFullName.substring(classFullName.lastIndexOf(".") + 1);
+
 		String packageName = classFullName.substring(0, classFullName.lastIndexOf("."));
 		String mainPackageName = "";
 		if (-1 < classFullName.indexOf(".dto")) {
-		    mainPackageName = classFullName.substring(0, classFullName.indexOf(".dto"));
+			mainPackageName = classFullName.substring(0, classFullName.indexOf(".dto"));
 		} else if (-1 < classFullName.indexOf(".po")) {
-		    mainPackageName = classFullName.substring(0, classFullName.indexOf(".po"));
+			mainPackageName = classFullName.substring(0, classFullName.indexOf(".po"));
 		} else {
 			mainPackageName = classFullName;
 		}
-		
+
 		String dtoPackageName = packageName.substring(0, packageName.lastIndexOf(".")) + ".dto";
 		String dtoFullName = dtoPackageName + "." + className + "Dto";
 		String dtoName = className + "Dto";
-		
-		String moduleName = mainPackageName.substring(mainPackageName.lastIndexOf(".")+1);
+
+		String moduleName = mainPackageName.substring(mainPackageName.lastIndexOf(".") + 1);
 		String tableName = "";
 		if (className.startsWith("R")) {
 			tableName = showName2DbName(className).substring(1);
@@ -66,12 +66,12 @@ public class VoParser {
 			tableName = "t" + showName2DbName(className);
 		}
 		String databaseIdName = "id";
-//		if (className.startsWith("R")) {
-//			databaseIdName = "id" + showName2DbName(className).substring(1);
-//		} else {
-//			databaseIdName = "idt" + showName2DbName(className);
-//		}
-		
+		// if (className.startsWith("R")) {
+		// databaseIdName = "id" + showName2DbName(className).substring(1);
+		// } else {
+		// databaseIdName = "idt" + showName2DbName(className);
+		// }
+
 		List<FieldVo> fieldVoList = VoParser.getAllAttrs(classFullName);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("fieldMapList", fieldVoList);
@@ -92,18 +92,19 @@ public class VoParser {
 		VoParser.processService(map, className);
 		VoParser.processServiceImpl(map, className);
 		VoParser.processMapper(map, className);
-		
+
 	}
-	
+
 	public static void copyFile(String classFullName) {
 		String classPath = VoParser.getClassPath(classFullName);
-		
+
 	}
 
 	/**
 	 * 生成dao文件
+	 * 
 	 * @param className
-	 * @throws IOException 
+	 * @throws IOException
 	 */
 	public static void processHttp(Map<String, Object> map, String className) throws IOException {
 		System.out.println("--------------------------------------http process start--------------------------------");
@@ -113,50 +114,61 @@ public class VoParser {
 
 	/**
 	 * 生成dao文件
+	 * 
 	 * @param className
-	 * @throws IOException 
+	 * @throws IOException
 	 */
 	public static void processDao(Map<String, Object> map, String className) throws IOException {
 		System.out.println("--------------------------------------dao process start--------------------------------");
 		VoParser.process(map, "dao.ftl", File.separator + "dao" + File.separator + className + "Dao.java");
 		System.out.println("--------------------------------------dao process end--------------------------------");
 	}
-	
+
 	public static void processDaoImpl(Map<String, Object> map, String className) throws IOException {
-		System.out.println("--------------------------------------dao implement process start--------------------------------");
+		System.out.println(
+				"--------------------------------------dao implement process start--------------------------------");
 		VoParser.process(map, "daoImpl.ftl", File.separator + className + "DaoImpl.java");
-		System.out.println("--------------------------------------dao implement process end--------------------------------");
+		System.out.println(
+				"--------------------------------------dao implement process end--------------------------------");
 	}
-	
+
 	/**
 	 * 生成service文件
+	 * 
 	 * @param className
-	 * @throws IOException 
+	 * @throws IOException
 	 */
 	public static void processService(Map<String, Object> map, String className) throws IOException {
-		System.out.println("--------------------------------------service process start--------------------------------");
+		System.out
+				.println("--------------------------------------service process start--------------------------------");
 		VoParser.process(map, "service.ftl", File.separator + "service" + File.separator + className + "Service.java");
-		System.out.println("--------------------------------------service process process end--------------------------------");
+		System.out.println(
+				"--------------------------------------service process process end--------------------------------");
 	}
-	
+
 	public static void processServiceImpl(Map<String, Object> map, String className) throws IOException {
-		System.out.println("--------------------------------------service implement process start--------------------------------");
+		System.out.println(
+				"--------------------------------------service implement process start--------------------------------");
 		VoParser.process(map, "serviceImpl.ftl", File.separator + className + "ServiceImpl.java");
-		System.out.println("--------------------------------------service implement process end--------------------------------");
+		System.out.println(
+				"--------------------------------------service implement process end--------------------------------");
 	}
-	
+
 	/**
 	 * 生成mapper文件
+	 * 
 	 * @param map
 	 * @param className
 	 * @throws IOException
 	 */
 	public static void processMapper(Map<String, Object> map, String className) throws IOException {
-		System.out.println("--------------------------------------mapper file process start--------------------------------");
+		System.out.println(
+				"--------------------------------------mapper file process start--------------------------------");
 		VoParser.process(map, "mapper.ftl", "mapper" + showName2DbName(className) + ".xml");
-		System.out.println("--------------------------------------mapper file process end--------------------------------");
+		System.out.println(
+				"--------------------------------------mapper file process end--------------------------------");
 	}
-	
+
 	/**
 	 * 
 	 * @param map
@@ -168,19 +180,19 @@ public class VoParser {
 		String basePath = VoParser.class.getResource("/").getPath();
 		basePath = basePath.replace("file:/", "");
 
-		String pageStr = FreemarkerUtil.processTemplateContent(templateName,
-				map);
+		String pageStr = FreemarkerUtil.processTemplateContent(templateName, map);
 		pageStr = pageStr.replaceAll("\\\\", "");
-		
+
 		VoParser.outFile(outFileName, pageStr);
 	}
 
 	public static void process(String className, String templateName, String outFileName) {
-		
+
 	}
-	
+
 	/**
 	 * 输出文件
+	 * 
 	 * @param fileName
 	 * @param content
 	 * @throws IOException
@@ -191,7 +203,7 @@ public class VoParser {
 		String filePath = basePath + File.separator + "mapper_out";
 		FileUtils.codegenerate(filePath, fileName, content);
 	}
-	
+
 	public static String getClassPath(String classFullName) {
 		Class clasz = null;
 		try {
@@ -203,14 +215,15 @@ public class VoParser {
 		if (null == clasz) {
 			return null;
 		}
-		
+
 		String path = clasz.getResource("").toString();
 		path = path.replaceAll("file:/", "");
 		return new File(path).getParent();
 	}
 
 	/**
-	 * 制定类名，获取所有类属性 
+	 * 制定类名，获取所有类属性
+	 * 
 	 * @param className
 	 * @return
 	 */
@@ -225,21 +238,21 @@ public class VoParser {
 		if (null == clasz) {
 			return null;
 		}
-		
+
 		List<FieldVo> fieldVoList = new ArrayList<FieldVo>();
 
 		Set<Field> fieldSet = getClassFields(clasz, true);
-		
+
 		Field[] fieldArr = new Field[fieldSet.size()];
 		fieldArr = fieldSet.toArray(fieldArr);
 		for (Field item : fieldArr) {
-			
-//			PrimaryKey annoPrimaryKey = item.getAnnotation(PrimaryKey.class);
-//			if (null != annoPrimaryKey) {
-//				System.out.println(annoPrimaryKey.annotationType().getName());
-//			} else {
-//				System.out.println("get");
-//			}
+
+			// PrimaryKey annoPrimaryKey = item.getAnnotation(PrimaryKey.class);
+			// if (null != annoPrimaryKey) {
+			// System.out.println(annoPrimaryKey.annotationType().getName());
+			// } else {
+			// System.out.println("get");
+			// }
 
 			String isPrimaryKey = "false";
 			String isForeginKey = "false";
@@ -257,7 +270,7 @@ public class VoParser {
 					isSearch = "true";
 				}
 			}
-			
+
 			String typeName = item.getType().getName();
 
 			String fieldName = item.getName();
@@ -282,7 +295,8 @@ public class VoParser {
 	}
 
 	/**
-	 * 制定类名，获取所有函数属性 
+	 * 制定类名，获取所有函数属性
+	 * 
 	 * @param className
 	 * @return
 	 */
@@ -293,44 +307,44 @@ public class VoParser {
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		
+
 		if (null == clasz) {
 			return null;
 		}
-		
+
 		List<MethodVo> methodVoList = new ArrayList<MethodVo>();
-		
+
 		Set<Method> methodSet = getClassMethods(clasz, true);
-		
+
 		Method[] methodArr = new Method[methodSet.size()];
 		methodArr = methodSet.toArray(methodArr);
 		for (Method item : methodArr) {
-			
+
 			Annotation[] annos = item.getAnnotations();
 			for (Annotation itemInner : annos) {
 				String claszName = itemInner.annotationType().getName();
-				
+
 			}
-			
+
 			String methodName = item.getName();
-			
+
 			MethodVo methodVo = new MethodVo();
 			methodVo.setName(methodName);
-			
+
 			methodVoList.add(methodVo);
 		}
-		
+
 		return methodVoList;
 	}
 
 	/**
 	 * 获取当前类属性
+	 * 
 	 * @param clazz
 	 * @param includeParentClass
 	 * @return
 	 */
-	public static Set<Field> getClassFields(Class clazz,
-			boolean includeParentClass) {
+	public static Set<Field> getClassFields(Class clazz, boolean includeParentClass) {
 		Set<Field> fieldSet = new HashSet<Field>();
 		Field[] fields = clazz.getDeclaredFields();
 		for (Field field : fields) {
@@ -344,12 +358,12 @@ public class VoParser {
 
 	/**
 	 * 获取当前类函数
+	 * 
 	 * @param clazz
 	 * @param includeParentClass
 	 * @return
 	 */
-	public static Set<Method> getClassMethods(Class clazz,
-			boolean includeParentClass) {
+	public static Set<Method> getClassMethods(Class clazz, boolean includeParentClass) {
 		Set<Method> fieldSet = new HashSet<Method>();
 		Method[] fields = clazz.getDeclaredMethods();
 		for (Method field : fields) {
@@ -363,12 +377,12 @@ public class VoParser {
 
 	/**
 	 * 获取父类属性
+	 * 
 	 * @param map
 	 * @param clazz
 	 * @return
 	 */
-	private static Set<Field> getParentClassFields(
-			Set<Field> fieldSet, Class clazz) {
+	private static Set<Field> getParentClassFields(Set<Field> fieldSet, Class clazz) {
 		Field[] fields = clazz.getDeclaredFields();
 		for (Field field : fields) {
 			fieldSet.add(field);
@@ -382,12 +396,12 @@ public class VoParser {
 
 	/**
 	 * 获取父类函数
+	 * 
 	 * @param map
 	 * @param clazz
 	 * @return
 	 */
-	private static Set<Method> getParentClassMethods(
-			Set<Method> methodSet, Class clazz) {
+	private static Set<Method> getParentClassMethods(Set<Method> methodSet, Class clazz) {
 		Method[] methods = clazz.getDeclaredMethods();
 		for (Method method : methods) {
 			methodSet.add(method);
@@ -398,14 +412,14 @@ public class VoParser {
 		getParentClassMethods(methodSet, clazz.getSuperclass());
 		return methodSet;
 	}
-	
+
 	/**
 	 * 
 	 * @param showName
 	 * @return
 	 */
 	private static String showName2DbNameForeginKey(String showName) {
-		
+
 		if (showName.endsWith("Id")) {
 			showName = showName.substring(0, showName.lastIndexOf("Id"));
 		}
@@ -423,7 +437,7 @@ public class VoParser {
 			}
 		}
 
-		return "fid_"+buffer.toString();
+		return "fid_" + buffer.toString();
 	}
 
 	/**
