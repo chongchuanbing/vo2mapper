@@ -2,8 +2,6 @@ package ${mainPackageName};
 
 import java.util.List;
 
-import com.ihomefnt.cms.http.PageModel;
-import com.ihomefnt.cms.http.SearchRequestModel;
 import ${dtoFullName};
 
 /**
@@ -11,7 +9,7 @@ import ${dtoFullName};
  * @author chong
  *
  */
-public interface ${entityName}Service {
+public interface I${entityName}Service {
 	
 	/**
 	 * 
@@ -32,13 +30,6 @@ public interface ${entityName}Service {
 	 * @return
 	 */
 	Integer update${dtoName}(${dtoName} ${dtoName?uncap_first});
-	
-	/**
-	 * 检索方法
-	 * @param searchRequestModel
-	 * @return
-	 */
-	PageModel queryAll${dtoName}(SearchRequestModel searchRequestModel);
 
 	/**
 	 * 根据id查询

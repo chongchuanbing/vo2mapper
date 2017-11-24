@@ -9,7 +9,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import ${mainPackageName}.dao.${entityName}Dao;
+import ${mainPackageName}.dao.I${entityName}Dao;
 import ${fullClassName};
 
 /**
@@ -18,16 +18,23 @@ import ${fullClassName};
  *
  */
 @Repository
-public class ${entityName}DaoImpl implements ${entityName}Dao {
+public class ${entityName}Dao implements I${entityName}Dao {
 	
 	@Autowired
     SqlSessionTemplate sqlSession;
 
-    private static final String NAME_SPACE = "com.ihomefnt.cms.${entityName?lower_case}.";
+    private static final String NAME_SPACE = "${fullClassName}.";
 
 	@Override
 	public List<${entityName}> queryAll${entityName}(Map<String, Object> paramMap) {
 		return sqlSession.selectList(NAME_SPACE + "queryAll${entityName}", paramMap);
+	}
+
+	@Override
+	public List<${entityName}> query${entityName}ById(Integer ${entityName?uncap_first}Id) {
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("${entityName?uncap_first}Id", ${entityName?uncap_first}Id);
+		return sqlSession.selectOne(NAME_SPACE + "query${entityName}ById", paramMap);
 	}
 	
 	@Override
@@ -44,6 +51,11 @@ public class ${entityName}DaoImpl implements ${entityName}Dao {
 	public Integer add${entityName}(${entityName} ${entityName?uncap_first}) {
 		sqlSession.insert(NAME_SPACE + "add${entityName}", ${entityName?uncap_first});
 		return ${entityName?uncap_first}.getId();
+	}
+
+	@Override
+	public Integer add${entityName}List(List<${entityName}> ${entityName?uncap_first}List) {
+		return sqlSession.insert(NAME_SPACE + "add${entityName}List", ${entityName?uncap_first}List);
 	}
 
 	@Override

@@ -13,7 +13,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.ihomefnt.psi.util.DateUtil;
+import com.ihomefnt.psi.deliveryCentre.completedTimeChange.po.PurchaseOrderCompletedTimeChange;
+import com.vo2mapper.util.DateUtil;
 import com.vo2mapper.util.FileUtils;
 import com.vo2mapper.util.FreemarkerUtil;
 import com.vo2mapper.vo.FieldVo;
@@ -25,10 +26,13 @@ import com.vo2mapper.vo.MethodVo;
  *
  */
 public class VoParser {
-
+	
 	public static void main(String[] args) throws IOException {
 
-		String classFullName = "";//PurchaseDetail.class.getName();
+		// ServiceRelationOrder.java
+		// ServiceTake.java
+
+		String classFullName = PurchaseOrderCompletedTimeChange.class.getName();
 
 		VoParser.beforeDeal(classFullName);
 
@@ -74,6 +78,7 @@ public class VoParser {
 
 		List<FieldVo> fieldVoList = VoParser.getAllAttrs(classFullName);
 		Map<String, Object> map = new HashMap<String, Object>();
+		
 		map.put("fieldMapList", fieldVoList);
 		map.put("tableName", tableName);
 		map.put("entityName", className);
@@ -108,7 +113,7 @@ public class VoParser {
 	 */
 	public static void processHttp(Map<String, Object> map, String className) throws IOException {
 		System.out.println("--------------------------------------http process start--------------------------------");
-		VoParser.process(map, "http.ftl", File.separator + "http" + File.separator + "Http" + className + ".java");
+		VoParser.process(map, "http.ftl", "Http" + className + ".java");
 		System.out.println("--------------------------------------http process end--------------------------------");
 	}
 
@@ -120,14 +125,14 @@ public class VoParser {
 	 */
 	public static void processDao(Map<String, Object> map, String className) throws IOException {
 		System.out.println("--------------------------------------dao process start--------------------------------");
-		VoParser.process(map, "dao.ftl", File.separator + "dao" + File.separator + className + "Dao.java");
+		VoParser.process(map, "dao.ftl", "I" + className + "Dao.java");
 		System.out.println("--------------------------------------dao process end--------------------------------");
 	}
 
 	public static void processDaoImpl(Map<String, Object> map, String className) throws IOException {
 		System.out.println(
 				"--------------------------------------dao implement process start--------------------------------");
-		VoParser.process(map, "daoImpl.ftl", File.separator + className + "DaoImpl.java");
+		VoParser.process(map, "daoImpl.ftl", className + "Dao.java");
 		System.out.println(
 				"--------------------------------------dao implement process end--------------------------------");
 	}
@@ -141,7 +146,7 @@ public class VoParser {
 	public static void processService(Map<String, Object> map, String className) throws IOException {
 		System.out
 				.println("--------------------------------------service process start--------------------------------");
-		VoParser.process(map, "service.ftl", File.separator + "service" + File.separator + className + "Service.java");
+		VoParser.process(map, "service.ftl", "I" + className + "Service.java");
 		System.out.println(
 				"--------------------------------------service process process end--------------------------------");
 	}
@@ -149,7 +154,7 @@ public class VoParser {
 	public static void processServiceImpl(Map<String, Object> map, String className) throws IOException {
 		System.out.println(
 				"--------------------------------------service implement process start--------------------------------");
-		VoParser.process(map, "serviceImpl.ftl", File.separator + className + "ServiceImpl.java");
+		VoParser.process(map, "serviceImpl.ftl", className + "Service.java");
 		System.out.println(
 				"--------------------------------------service implement process end--------------------------------");
 	}
@@ -164,7 +169,9 @@ public class VoParser {
 	public static void processMapper(Map<String, Object> map, String className) throws IOException {
 		System.out.println(
 				"--------------------------------------mapper file process start--------------------------------");
-		VoParser.process(map, "mapper.ftl", "mapper" + showName2DbName(className) + ".xml");
+		// VoParser.process(map, "mapper.ftl", "mapper" +
+		// showName2DbName(className) + ".xml");
+		VoParser.process(map, "mapper.ftl", className + "Mapper" + ".xml");
 		System.out.println(
 				"--------------------------------------mapper file process end--------------------------------");
 	}

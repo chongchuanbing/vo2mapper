@@ -8,11 +8,9 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ihomefnt.cms.http.PageModel;
-import com.ihomefnt.cms.http.SearchRequestModel;
 import com.ihomefnt.cms.utils.ModelMapperUtil;
 import ${mainPackageName}.${entityName}Service;
-import ${mainPackageName}.dao.${entityName}Dao;
+import ${mainPackageName}.dao.I${entityName}Dao;
 import ${fullClassName};
 import ${dtoFullName};
 
@@ -22,10 +20,10 @@ import ${dtoFullName};
  *
  */
 @Service
-public class ${entityName}ServiceImpl implements ${entityName}Service {
+public class ${entityName}Service implements I${entityName}Service {
 	
 	@Autowired
-	private ${entityName}Dao ${entityName?uncap_first}Dao;
+	private I${entityName}Dao ${entityName?uncap_first}Dao;
 
 	@Override
 	public List<${dtoName}> queryAll${dtoName}() {
@@ -52,15 +50,6 @@ public class ${entityName}ServiceImpl implements ${entityName}Service {
 		}
 		${entityName} ${entityName?uncap_first} = ModelMapperUtil.strictMap(${dtoName?uncap_first}, ${entityName}.class);
 		return ${entityName?uncap_first}Dao.update${entityName}(${entityName?uncap_first});
-	}
-
-	/**
-	 * 检索方法
-	 * @param searchRequestModel
-	 * @return
-	 */
-	public PageModel queryAll${dtoName}(SearchRequestModel searchRequestModel) {
-		return null;
 	}
 
 	/**

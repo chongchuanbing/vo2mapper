@@ -3,12 +3,12 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="${packageName}">
+<mapper namespace="${fullClassName}">
 
 	<resultMap id="${entityName?uncap_first}ResultMap" type="${fullClassName}">
 		<id property="id" column="${databaseIdName}" />
 		<#list fieldMapList as field>
-		<#if field.primaryKey == 'false'>
+		<#if field.primaryKey == 'false' && field.showName != 'id'>
 		<result property="${field.showName}" column="${field.dbName}" />
 		</#if>
 		</#list>
@@ -16,9 +16,8 @@
 	
 	<select id="queryAll${entityName}" parameterType="map" resultMap="${entityName?uncap_first}ResultMap">
     	select
-	    	t.${databaseIdName},
 	    	<#list fieldMapList as field>
-	    	<#if field.primaryKey == 'false'>
+	    	<#if field.primaryKey == 'false' >
 	    	t.${field.dbName}<#if field_has_next>,</#if>
 	    	</#if>
 	    	</#list>
@@ -30,7 +29,6 @@
 			and t.${field.dbName}=\#\{${field.showName}\}
 			</#if>
 		</#list>
-		order by t.create_time desc
     </select>
     
     <select id="queryAll${entityName}Count" parameterType="map" resultType="java.lang.Integer">
@@ -43,12 +41,30 @@
 		</#list>
     </select>
     
+    <select id="query${entityName}ById" parameterType="map" resultMap="${entityName?uncap_first}ResultMap">
+    	select
+	    	<#list fieldMapList as field>
+	    	<#if field.primaryKey == 'false' >
+	    	t.${field.dbName}<#if field_has_next>,</#if>
+	    	</#if>
+	    	</#list>
+    	from ${tableName} t 
+		where 1=1
+		and t.delete_flag = 0
+		<#list fieldMapList as field>
+			<#if field.search == 'true'>
+			and t.${field.dbName}=\#\{${field.showName}\}
+			</#if>
+		</#list>
+		and t.id = \#\{${entityName?uncap_first}Id\}
+    </select>
+    
     <insert id="add${entityName}" parameterType="${fullClassName}"
     	useGeneratedKeys="true" keyProperty="id">
     	INSERT INTO ${tableName}
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<#list fieldMapList as field>
-			<#if field.primaryKey == "false">
+			<#if field.primaryKey == "false"  && field.showName != 'id'>
 			<if test="${field.showName} != null">
 				${field.dbName},
 			</if>
@@ -57,7 +73,7 @@
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<#list fieldMapList as field>
-			<#if field.primaryKey == "false">
+			<#if field.primaryKey == "false" && field.showName != 'id'>
 			<if test="${field.showName} != null">
 				\#\{${field.showName}\},
 			</if>
@@ -70,7 +86,7 @@
     INSERT INTO ${tableName}
     <trim prefix="(" suffix=")" suffixOverrides=",">
 		<#list fieldMapList as field>
-		<#if field.primaryKey == "false">
+		<#if field.primaryKey == "false" && field.showName != 'id'>
 			${field.dbName},
 		</#if>
 		</#list>
@@ -80,7 +96,7 @@
 			separator=",">
 			<trim prefix="(" suffix=")" suffixOverrides=",">
 				<#list fieldMapList as field>
-				<#if field.primaryKey == "false">
+				<#if field.primaryKey == "false" && field.showName != 'id'>
 					\#\{item.${field.showName}\}<#if field_has_next>,</#if>
 				</#if>
 				</#list>
@@ -92,7 +108,7 @@
 		update ${tableName}
 		<set>
 			<#list fieldMapList as field>
-			<#if field.primaryKey == "false">			
+			<#if field.primaryKey == "false" && field.showName != 'id'>			
 			<if test="${field.showName} != null">
 				${field.dbName}=\#\{${field.showName}\},
 			</if>
