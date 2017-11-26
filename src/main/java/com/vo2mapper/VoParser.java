@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -332,7 +333,7 @@ public class VoParser {
 				String claszName = itemInner.annotationType().getName();
 
 			}
-
+			
 			String methodName = item.getName();
 
 			MethodVo methodVo = new MethodVo();
@@ -371,15 +372,20 @@ public class VoParser {
 	 * @return
 	 */
 	public static Set<Method> getClassMethods(Class clazz, boolean includeParentClass) {
-		Set<Method> fieldSet = new HashSet<Method>();
-		Method[] fields = clazz.getDeclaredMethods();
-		for (Method field : fields) {
-			fieldSet.add(field);
+		Set<Method> methodSet = new HashSet<Method>();
+		Method[] methods = clazz.getDeclaredMethods();
+		for (Method method : methods) {
+		      //获得修饰符
+			int modifiers = method.getModifiers();
+			String modifierStr = Modifier.toString(modifiers);
+			if ("public".equals(modifierStr) || "public static".equals(modifierStr)) {
+				methodSet.add(method);
+			}
 		}
-		if (includeParentClass) {
-			getParentClassMethods(fieldSet, clazz.getSuperclass());
-		}
-		return fieldSet;
+//		if (includeParentClass) {
+//			getParentClassMethods(fieldSet, clazz.getSuperclass());
+//		}
+		return methodSet;
 	}
 
 	/**

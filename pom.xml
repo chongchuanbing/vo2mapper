@@ -26,6 +26,11 @@
 			<artifactId>psi-intf</artifactId>
 			<version>1.5.0</version>
 		</dependency>
+		<dependency>
+			<groupId>com.ihomefnt.psi</groupId>
+			<artifactId>psi-service</artifactId>
+			<version>1.5.0</version>
+		</dependency>
 		
 		<dependency>
 			<groupId>org.freemarker</groupId>
